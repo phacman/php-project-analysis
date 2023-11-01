@@ -1,0 +1,52 @@
+#!/usr/bin/env php
+<?php
+
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
+
+set_error_handler(/**
+ * @throws ErrorException
+ */ static function ($severity, $message, $file, $line) {
+    if ($severity & error_reporting()) {
+        throw new ErrorException($message, 0, $severity, $file, $line);
+    }
+});
+
+(function () {
+    if (PHP_VERSION_ID < 80100) {
+        fwrite(STDERR, "PHP needs to be a minimum version of PHP 8.1.0\n");
+        fwrite(STDERR, 'Current PHP version: '.PHP_VERSION.' ('.PHP_VERSION_ID.")\n");
+        exit(1);
+    }
+})();
+
+if (!ini_get('date.timezone')) {
+    ini_set('date.timezone', 'Europe/Moscow');
+}
+
+(function () {
+    if (isset($GLOBALS['_composer_autoload_path'])) {
+        define('COMPOSER_AUTOLOAD_PATH', $GLOBALS['_composer_autoload_path']);
+
+        unset($GLOBALS['_composer_autoload_path']);
+    } else {
+        $files = [
+            __DIR__ . '/../../autoload.php', __DIR__ . '/../vendor/autoload.php',
+            __DIR__ . '/vendor/autoload.php'
+        ];
+        foreach ($files as $file) {
+            if (file_exists($file)) {
+                define('COMPOSER_AUTOLOAD_PATH', $file);
+
+                break;
+            }
+        }
+
+        unset($file);
+    }
+})();
+
+require COMPOSER_AUTOLOAD_PATH;
+
+array_shift($argv);
+
+exit((new PhacMan\ProjectAnalysis\Application)->run($argv));
