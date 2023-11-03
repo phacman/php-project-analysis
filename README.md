@@ -41,14 +41,37 @@ If you try to run the analysis without a qualifying command, you will receive a 
 
 ```shell
 You should enter one of the commands:
+ - classes:  Exploring src/tests classes
  - phpinfo:  phpinfo() function data
  - phpini:  php.ini file data
  - server:  $_SERVER array data
 ```
 
 If the analysis is successful, a table will be displayed in the console.
-For example this:
 
+## Report Examples
+#### src/tests classes
+```
++-----------------------+----------+-----------+--- Exploring src/tests classes -------------+-------------------+-----------------+
+| type                  | qty      | constants | properties | methods_total | public_methods | protected_methods | private_methods |
++-----------------------+----------+-----------+------------+---------------+----------------+-------------------+-----------------+
+|                                      -------------------- src/ classes --------------------                                      |
+|                       | 1        | 0         | 0          | 0             | 0              | 0                 | 0               |
+| class                 | 60       | 10        | 69         | 285           | 223            | 9                 | 53              |
+| enum                  | 1        | 0         | 0          | 0             | 0              | 0                 | 0               |
+| interface             | 13       | 1         | 0          | 23            | 23             | 0                 | 0               |
+| trait                 | 1        | 0         | 0          | 0             | 0              | 0                 | 0               |
++-----------------------+----------+-----------+------------+---------------+----------------+-------------------+-----------------+
+|                                     -------------------- tests/ classes --------------------                                     |
+|                       | 44       | 0         | 0          | 0             | 0              | 0                 | 0               |
+| class                 | 131      | 13        | 96         | 411           | 388            | 15                | 8               |
+| enum                  | 2        | 0         | 1          | 4             | 1              | 0                 | 3               |
+| interface             | 7        | 0         | 0          | 6             | 6              | 0                 | 0               |
+| trait                 | 1        | 0         | 5          | 9             | 7              | 0                 | 2               |
++-----------------------+----------+-----------+--- Exploring src/tests classes -------------+-------------------+-----------------+
+```
+
+#### php.ini
 ```
 +----------------------------------------+-------------------- php.ini file data --+----------------------------------------------------------+
 | #1                                     | #2                                      | #3                                                       |
