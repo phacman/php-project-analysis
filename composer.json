@@ -28,6 +28,7 @@
     },
     "require": {
         "php": ">=8.1",
+        "phacman/php-class-explorer": "^1.0",
         "phacman/php-console-table": "^1.0",
         "phacman/php-process": "^v1.0.0"
     },
